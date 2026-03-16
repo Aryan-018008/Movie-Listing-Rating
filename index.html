@@ -38,13 +38,14 @@
 
 <!-- Search + Buttons + Filters -->
 
-<div id="homepg" class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 mt-6">
-
+<!-- <div id="homepg" class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 mt-6"> -->
+  <div id="homepg" class="sticky top-16 z-40 bg-gray-900 border-b border-gray-800">
+  <div class="max-w-7xl mx-auto flex flex-wrap items-center  gap-3 py-4">
 <!-- Search Bar -->
 <input
 id="searchInput"
 type="text"
-placeholder="Search movies..."
+placeholder="Search movies/Cast Name..."
 class="px-4 py-2 rounded text-black w-[420px]"
 />
 
@@ -69,14 +70,22 @@ class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition">
 <option value="">All Genres</option>
 <option>Sci-Fi</option>
 <option>Action</option>
+<option>Adventure</option>
+<option>Animation</option>
+<option>Horror</option>
+<option>Crime</option>
 <option>Drama</option>
+<option>Comedy</option>
+<option>History</option>
 </select>
-
+ 
 
 <!-- Year Filter -->
 
 <select id="yearFilter" class="text-black px-3 py-2 rounded">
 <option value="">All Years</option>
+<option>2026</option>
+<option>2025</option>
 <option>2024</option>
 <option>2023</option>
 <option>2022</option>
@@ -87,11 +96,15 @@ class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition">
 
 <select id="ratingFilter" class="text-black px-3 py-2 rounded">
 <option value="">All Ratings</option>
+<option value="6">6+ Stars</option>
+<option value="5">5+ Stars</option>
 <option value="4">4+ Stars</option>
 <option value="3">3+ Stars</option>
 </select>
 
+<!-- </div> -->
 </div>
+ </div>
 
 
 <!-- Trending Movies -->
@@ -134,13 +147,16 @@ class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
 </section>
 
+
+<!-- Movie Details Modal -->
+
 <!-- Movie Details Modal -->
 
 <div
 id="movieModal"
-class="fixed inset-0 hidden bg-black bg-opacity-70 items-center justify-center">
+class="fixed inset-0 hidden bg-black bg-opacity-70 items-center justify-center z-50">
 
-<div class="bg-gray-800 p-6 rounded-lg w-96 relative">
+<div class="bg-gray-800 p-6 rounded-lg w-[420px] max-h-[90vh] overflow-y-auto relative">
 
 <button
 onclick="closeModal()"
@@ -150,13 +166,33 @@ class="absolute right-3 top-3 text-gray-300 text-lg">
 
 <h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
 
-<p id="modalGenre"></p>
+<img id="modalPoster" class="w-full h-64 object-cover rounded mb-3">
+
+<p id="modalRating"></p>
 <p id="modalYear"></p>
+<p id="modalReleased"></p>
+<p id="modalRuntime"></p>
 <p id="modalDirector"></p>
 <p id="modalCast"></p>
-<p id="modalProduction"></p>
+
+<div class="mt-4">
+<h3 class="font-semibold">Rate this Movie</h3>
+<div id="userStars" class="flex gap-2 text-3xl"></div>
+<p id="userRatingMsg" class="text-green-400 mt-2"></p>
+</div>
+
+<div class="mt-4">
+<a
+id="modalTrailer"
+target="_blank"
+class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+▶ Watch Trailer
+</a>
+</div>
+
 </div>
 </div>
+
 
 <!-- About -->
 
@@ -205,7 +241,7 @@ Contact Us
 <h3 class="text-xl font-semibold">Get in Touch</h3>
 
 <p class="text-gray-300">
-📧 Email: support@cinescope.com
+📧 Email: support@movieemart.com
 </p>
 
 <p class="text-gray-300">
@@ -218,15 +254,12 @@ Contact Us
 
 
 <!-- Social Media -->
-
 <div class="mt-6">
-
 <h3 class="text-xl font-semibold mb-3">
 Follow Us
 </h3>
 
 <div class="flex gap-6 text-lg">
-
 <a href="https://www.facebook.com/"  target="_blank" class="hover:text-blue-500 transition">
 <i class="fa-brands fa-facebook"></i>
 </a>
@@ -238,11 +271,8 @@ Follow Us
 <a href="https://www.instagram.com/" target="_blank" class="hover:text-pink-500 transition">
 <i class="fa-brands fa-instagram"></i>
 </a>
-
-</div>
-
-</div>
-
+   </div>
+ </div>
 </div>
 
 
