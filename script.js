@@ -1,5 +1,5 @@
 //Api Key
-const API_KEY = "" //Tmdb Api key
+const API_KEY = "84bf9497969fff559d5aa3705cc0c9a1" //Tmdb Api key
 const BASE_URL = "https://api.themoviedb.org/3"
 const IMG_URL = "https://image.tmdb.org/t/p/w500"
 
@@ -76,7 +76,7 @@ card.className =
 card.innerHTML = `
 
 <img
-src="${IMG_URL + movie.poster_path}"
+src="${movie.poster_path ? IMG_URL + movie.poster_path : 'https://via.placeholder.com/500'}"
 class="h-64 w-full object-cover"
 />
 
@@ -104,11 +104,12 @@ target.appendChild(card)
 }
 
 //Search Movie
+
 async function searchMovies(){
 
-const query = document.getElementById("searchInput").value
+const query = document.getElementById("searchInput").value.trim()
 
-if(query.length < 1) return
+if(!query) return
 
 const res = await fetch(
 `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
@@ -118,7 +119,11 @@ const data = await res.json()
 
 displayMovies(data.results, movieGrid)
 
-}
+// change title to search results
+document.getElementById("libraryTitle").innerText = "🔎 Search Results"
+
+// scroll to results
+movieGrid.scrollIntoView({ behavior: "smooth" })
 
 //Famous Movie
 async function fetchPopularMovies(){
@@ -129,34 +134,22 @@ const data = await res.json()
 
 displayMovies(data.results, movieGrid)
 
-}
+}}
+
+
 document
 .getElementById("searchBtn")
-.addEventListener("click", async () => {
+.addEventListener("click", searchMovies)
 
-const query = document.getElementById("searchInput").value
-
-if(query.length < 1) return
-
-const res = await fetch(
-`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
-)
-
-const data = await res.json()
-
-displayMovies(data.results, movieGrid)
-
+document
+.getElementById("searchInput")
+.addEventListener("keypress", function(e){
+if(e.key === "Enter"){
+searchMovies()
+}
 })
 
 
-//Movie Ratings
-function rateMovie(index,star){
-
-movies[index].ratings.push(star)
-
-renderMovies(movies,movieGrid)
-
-}
 
 
 //PopUp
@@ -186,35 +179,20 @@ document.getElementById("movieModal").classList.add("hidden")
 }
 
 
-//Search Movie
-document
-.getElementById("searchInput")
-.addEventListener("keyup", async (e)=>{
 
-const query = e.target.value
 
-if(query.length < 1) return
 
-const res = await fetch(
-`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
-)
-
-const data = await res.json()
-
-// displayMovies(data.results)
-displayMovies(data.results, movieGrid)
-
-})
-
-//Refresh Button
 function resetFilters() {
 
 document.getElementById("searchInput").value = "";
 document.getElementById("genreFilter").value = "";
 document.getElementById("yearFilter").value = "";
 document.getElementById("ratingFilter").value = "";
+document.getElementById("libraryTitle").innerText = "🎬 Movie Library";
 
-renderMovies(); 
+// reload movies again
+fetchPopularMovies();
+
 }
 
 
