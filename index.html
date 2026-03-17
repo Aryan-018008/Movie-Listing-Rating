@@ -1,321 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MovieeMart</title>
+  <title>MovieeMart</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
-<body id="home-page" class="bg-gray-900 text-white font-sans">
+<body class="bg-gray-900 text-white font-sans scroll-smooth">
 
-<!-- Navbar -->
-
-<header class="bg-black shadow-lg sticky top-0 z-50">
-
+  <!-- Navbar -->
+  <!-- <header class="bg-black shadow-lg sticky top-0 z-50">
 <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
 
 <h1 class="text-2xl font-bold text-red-500">
- 🎬MovieeMart
+🎬 MovieeMart
 </h1>
 
-<!-- Nav-Buttons  -->
- <nav class="flex gap-6 text-gray-300 font-medium">
-
-  <a href="#homepg" class="hover:text-red-500 transition">Home</a>
-  <a href="#latest" class="hover:text-red-500 transition">Latest Movies</a>
-  <a href="#trending" class="hover:text-red-500 transition">Trendings</a>
-  <a href="#about" class="hover:text-red-500 transition">About</a>
-  <a href="#contact" class="hover:text-red-500 transition">Contact</a>
-  </nav>
-</div>
-</header>
-
-<!-- Search + Buttons + Filters -->
-
-<!-- <div id="homepg" class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 mt-6"> -->
-  <div id="homepg" class="sticky top-16 z-40 bg-gray-900 border-b border-gray-800">
-  <div class="max-w-7xl mx-auto flex flex-wrap items-center  gap-3 py-4">
-<!-- Search Bar -->
-<input
-id="searchInput"
-type="text"
-placeholder="Search movies/Cast Name..."
-class="px-4 py-2 rounded text-black w-[420px]"
-/>
-
-<!-- Search Button -->
-
-<button id="searchBtn"
-class="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition">
-🔍
-</button>
-
-<!-- Refresh Button -->
-
-<button
-onclick="resetFilters()"
-class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition">
-↻
-</button>
-
-<!-- Genre Filter -->
-
-<select id="genreFilter" class="text-black px-3 py-2 rounded">
-<option value="">All Genres</option>
-<option>Sci-Fi</option>
-<option>Action</option>
-<option>Adventure</option>
-<option>Animation</option>
-<option>Horror</option>
-<option>Crime</option>
-<option>Drama</option>
-<option>Comedy</option>
-<option>History</option>
-</select>
- 
-
-<!-- Year Filter -->
-
-<select id="yearFilter" class="text-black px-3 py-2 rounded">
-<option value="">All Years</option>
-<option>2026</option>
-<option>2025</option>
-<option>2024</option>
-<option>2023</option>
-<option>2022</option>
-</select>
 
 
-<!-- Rating Filter -->
-
-<select id="ratingFilter" class="text-black px-3 py-2 rounded">
-<option value="">All Ratings</option>
-<option value="6">6+ Stars</option>
-<option value="5">5+ Stars</option>
-<option value="4">4+ Stars</option>
-<option value="3">3+ Stars</option>
-</select>
-
-<!-- </div> -->
-</div>
- </div>
-
-
-<!-- Trending Movies -->
-<section id="trending" class="max-w-7xl mx-auto p-4">
-
-<h2 class="text-xl font-semibold mb-4">
-🔥 Trending Movies
-</h2>
-
-<div id="trendingMovies"
-class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-
-</section>
-
-<!-- Recent Movies -->
-
-<section id="latest" class="max-w-7xl mx-auto p-4">
-
-<h2 class="text-xl font-semibold mb-4">
-🆕 Recently Released
-</h2>
-
-<div id="recentMovies"
-class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-
-</section>
-
-<!-- Movie Library -->
-
-<section class="max-w-7xl mx-auto p-4">
-
-<h2 id="libraryTitle" class="text-xl font-semibold mb-4">
-🎬 Movie Library
-</h2>
-
-<div
-id="movieGrid"
-class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-</div>
-
-</section>
-
-
-<!-- Movie Details Modal -->
-
-<!-- Movie Details Modal -->
-
-<div
-id="movieModal"
-class="fixed inset-0 hidden bg-black bg-opacity-70 items-center justify-center z-50">
-
-<div class="bg-gray-800 p-6 rounded-lg w-[420px] max-h-[90vh] overflow-y-auto relative">
-
-<button
-onclick="closeModal()"
-class="absolute right-3 top-3 text-gray-300 text-lg">
-✖
-</button>
-
-<h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
-
-<img id="modalPoster" class="w-full h-64 object-cover rounded mb-3">
-
-<p id="modalRating"></p>
-<p id="modalYear"></p>
-<p id="modalReleased"></p>
-<p id="modalRuntime"></p>
-<p id="modalDirector"></p>
-<p id="modalCast"></p>
-
-<div class="mt-4">
-<h3 class="font-semibold">Rate this Movie</h3>
-<div id="userStars" class="flex gap-2 text-3xl"></div>
-<p id="userRatingMsg" class="text-green-400 mt-2"></p>
-</div>
-
-<div class="mt-4">
-<a
-id="modalTrailer"
-target="_blank"
-class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
-▶ Watch Trailer
-</a>
-</div>
+<nav class="flex flex-wrap gap-4 text-gray-300 font-medium text-sm"></nav>
+<a href="#homepg" class="hover:text-red-500">Home</a>
+<a href="#latest" class="hover:text-red-500">Latest Movies</a>
+<a href="#trending" class="hover:text-red-500">Trendings</a>
+<a href="#about" class="hover:text-red-500">About</a>
+<a href="#contact" class="hover:text-red-500">Contact</a>
+</nav>
 
 </div>
-</div>
+</header> -->
 
+  <header class="bg-black shadow-lg sticky top-0 z-50">
 
-<!-- About -->
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between">
 
-<section id="about" class="bg-gray-800 mt-16 py-12">
+      <!-- Logo -->
+      <h1 class="text-2xl font-bold text-red-500 text-center md:text-left">
+        🎬 MovieeMart
+      </h1>
 
-<div class="max-w-7xl mx-auto px-6 text-center">
+      <!-- Nav -->
+      <nav class="grid grid-cols-3 gap-2 mt-3 md:mt-0 md:flex md:gap-6 text-gray-300 text-sm md:text-base">
 
-<h2 class="text-3xl font-bold text-red-500 mb-6">
-About MovieeMart
-</h2>
+        <a href="#homepg" class="text-center py-2 rounded hover:bg-gray-800 hover:text-red-500 transition outline-none">
+          Home
+        </a>
 
-<p class="text-gray-300 max-w-3xl mx-auto leading-relaxed">
-MovieeMart is a modern movie discovery platform designed for film lovers to explore,
-search, and rate their favorite movies. Our goal is to create a seamless and visually
-engaging experience where users can easily browse trending movies, discover newly
-released films, and view detailed information about each title.
-</p>
+        <a href="#latest" class="text-center py-2 rounded hover:bg-gray-800 hover:text-red-500 transition outline-none">
+          Latest
+        </a>
 
-<p class="text-gray-300 max-w-3xl mx-auto mt-4 leading-relaxed">
-With features like interactive star ratings, smart filtering, and real-time search,
-MovieeMart helps users find the perfect movie to watch. The platform is built with
-modern web technologies to ensure a fast, responsive, and enjoyable experience
-across all devices.
-</p>
+        <a href="#trending"
+          class="text-center py-2 rounded hover:bg-gray-800 hover:text-red-500 transition outline-none">
+          Trending
+        </a>
 
-</div>
+        <a href="#about" class="text-center py-2 rounded hover:bg-gray-800 hover:text-red-500 transition outline-none">
+          About
+        </a>
 
-</section>
+        <a href="#contact"
+          class="text-center py-2 rounded hover:bg-gray-800 hover:text-red-500 transition outline-none">
+          Contact
+        </a>
 
-<!-- Contact Us -->
+      </nav>
 
-<section id="contact" class="bg-gray-900 py-14">
+    </div>
+  </header>
 
-<div class="max-w-7xl mx-auto px-6">
+  <!-- Search + Filters -->
+  <div id="homepg" class="sticky top-16 z-40 bg-gray-900/90 backdrop-blur border-b border-gray-800">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center gap-3 py-4 px-4">
 
-<h2 class="text-3xl font-bold text-center text-red-500 mb-10">
-Contact Us
-</h2>
+      <!-- Search -->
+      <input id="searchInput" type="text" placeholder="Search movies / Cast..."
+        class="px-4 py-2 rounded text-black w-full md:w-[350px] lg:w-[420px]" />
 
-<div class="grid md:grid-cols-2 gap-10">
+      <!-- Controls -->
+      <div class="flex flex-wrap gap-3 w-full md:w-auto">
 
-<!-- Contact Details -->
+        <button id="searchBtn" class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+          🔍
+        </button>
 
-<div class="space-y-4">
+        <button onclick="resetFilters()" class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600">
+          ↻
+        </button>
 
-<h3 class="text-xl font-semibold">Get in Touch</h3>
+        <select id="genreFilter" class="text-black px-3 py-2 rounded w-full sm:w-auto">
+          <option value="">All Genres</option>
+          <option>Sci-Fi</option>
+          <option>Action</option>
+          <option>Adventure</option>
+          <option>Animation</option>
+          <option>Horror</option>
+          <option>Crime</option>
+          <option>Drama</option>
+          <option>Comedy</option>
+          <option>History</option>
+        </select>
 
-<p class="text-gray-300">
-📧 Email: support@movieemart.com
-</p>
+        <select id="yearFilter" class="text-black px-3 py-2 rounded w-full sm:w-auto">
+          <option value="">All Years</option>
+          <option>2026</option>
+          <option>2025</option>
+          <option>2024</option>
+          <option>2023</option>
+          <option>2022</option>
+        </select>
 
-<p class="text-gray-300">
-🌐 Website: www.movieemart.com
-</p>
+        <select id="ratingFilter" class="text-black px-3 py-2 rounded w-full sm:w-auto">
+          <option value="">All Ratings</option>
+          <option value="6">6+ Stars</option>
+          <option value="5">5+ Stars</option>
+          <option value="4">4+ Stars</option>
+          <option value="3">3+ Stars</option>
+        </select>
 
-<p class="text-gray-300">
-📞 Phone: +91 7412365887
-</p>
+      </div>
+    </div>
+  </div>
 
+  <!-- Trending -->
+  <section id="trending" class="max-w-7xl mx-auto p-4">
+    <h2 class="text-xl font-semibold mb-4">🔥 Trending Movies</h2>
 
-<!-- Social Media -->
-<div class="mt-6">
-<h3 class="text-xl font-semibold mb-3">
-Follow Us
-</h3>
+    <div id="trendingMovies" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    </div>
+  </section>
 
-<div class="flex gap-6 text-lg">
-<a href="https://www.facebook.com/"  target="_blank" class="hover:text-blue-500 transition">
-<i class="fa-brands fa-facebook"></i>
-</a>
+  <!-- Latest -->
+  <section id="latest" class="max-w-7xl mx-auto p-4">
+    <h2 class="text-xl font-semibold mb-4">🆕 Recently Released</h2>
 
-<a href="https://x.com/" target="_blank" class="hover:text-gray-400 transition">
-<i class="fa-brands fa-x-twitter"></i>
-</a>
+    <div id="recentMovies" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    </div>
+  </section>
 
-<a href="https://www.instagram.com/" target="_blank" class="hover:text-pink-500 transition">
-<i class="fa-brands fa-instagram"></i>
-</a>
-   </div>
- </div>
-</div>
+  <!-- Library -->
+  <section id="library" class="max-w-7xl mx-auto p-4">
+    <h2 id="libraryTitle" class="text-xl font-semibold mb-4">🎬 Movie Library</h2>
 
+    <div id="movieGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    </div>
+  </section>
 
+  <!-- Modal -->
+  <div id="movieModal" class="fixed inset-0 hidden bg-black bg-opacity-70 items-center justify-center z-50">
 
-<!-- Telegram Section -->
+    <div class="bg-gray-800 p-6 rounded-lg w-[90%] max-w-md max-h-[90vh] overflow-y-auto relative">
 
-<div class="bg-gray-800 p-6 rounded-lg text-center shadow-lg">
+      <button onclick="closeModal()" class="absolute right-3 top-3 text-gray-300 text-lg">
+        ✖
+      </button>
 
-<h3 class="text-xl font-semibold mb-3">
-📢 Quick Movie Updates
-</h3>
+      <h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
 
-<p class="text-gray-300 mb-4">
-For Quick updates about
-new movie releases, trending films, and ratings.
-</p>
+      <img id="modalPoster" class="w-full h-64 object-cover rounded mb-3">
 
+      <p id="modalRating"></p>
+      <p id="modalYear"></p>
+      <p id="modalReleased"></p>
+      <p id="modalRuntime"></p>
+      <p id="modalDirector"></p>
+      <p id="modalCast"></p>
 
+      <div class="mt-4">
+        <h3 class="font-semibold">Rate this Movie</h3>
+        <div id="userStars" class="flex gap-2 text-3xl"></div>
+        <p id="userRatingMsg" class="text-green-400 mt-2"></p>
+      </div>
 
-<a
-href="https://web.telegram.org/a/" target="_blank"
-class="bg-blue-500 px-6 py-2 rounded hover:bg-blue-600 transition">
+      <div class="mt-4">
+        <a id="modalTrailer" target="_blank" class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+          ▶ Watch Trailer
+        </a>
+      </div>
 
-Join Telegram Channel
-</a>
+    </div>
+  </div>
 
-</div>
+  <!-- About -->
+  <section id="about" class="bg-gray-800 mt-16 py-12">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-red-500 mb-6"> About MovieeMart </h2>
+      <p class="text-gray-300 max-w-3xl mx-auto leading-relaxed"> MovieeMart is a modern movie discovery platform
+        designed for film lovers to explore, search, and rate their favorite movies. Our goal is to create a seamless
+        and visually engaging experience where users can easily browse trending movies, discover newly released films,
+        and view detailed information about each title. </p>
+      <p class="text-gray-300 max-w-3xl mx-auto mt-4 leading-relaxed"> With features like interactive star ratings,
+        smart filtering, and real-time search, MovieeMart helps users find the perfect movie to watch. The platform is
+        built with modern web technologies to ensure a fast, responsive, and enjoyable experience across all devices.
+      </p>
+    </div>
+  </section>
 
-</div>
-</div>
-</section>
+  <!-- Contact -->
+  <section id="contact" class="bg-gray-900 py-14">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-red-500 mb-10"> Contact Us </h2>
+      <div class="grid md:grid-cols-2 gap-10"> <!-- Contact Details -->
+        <div class="space-y-4">
+          <h3 class="text-xl font-semibold">Get in Touch</h3>
+          <p class="text-gray-300"> 📧 Email: support@movieemart.com </p>
+          <p class="text-gray-300"> 🌐 Website: www.movieemart.com </p>
+          <p class="text-gray-300"> 📞 Phone: +91 7412365887 </p> <!-- Social Media -->
+          <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-3"> Follow Us </h3>
+            <div class="flex gap-6 text-lg"> <a href="https://www.facebook.com/" target="_blank"
+                class="hover:text-blue-500 transition"> <i class="fa-brands fa-facebook"></i> </a> <a
+                href="https://x.com/" target="_blank" class="hover:text-gray-400 transition"> <i
+                  class="fa-brands fa-x-twitter"></i> </a> <a href="https://www.instagram.com/" target="_blank"
+                class="hover:text-pink-500 transition"> <i class="fa-brands fa-instagram"></i> </a> </div>
+          </div>
+        </div> <!-- Telegram Section -->
+        <div class="bg-gray-800 p-6 rounded-lg text-center shadow-lg">
+          <h3 class="text-xl font-semibold mb-3"> 📢 Quick Movie Updates </h3>
+          <p class="text-gray-300 mb-4"> For Quick updates about new movie releases, trending films, and ratings. </p>
+          <a href="https://web.telegram.org/a/" target="_blank"
+            class="bg-blue-500 px-6 py-2 rounded hover:bg-blue-600 transition"> Join Telegram Channel </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- footer -->
- <footer class="bg-[#0b1a3a] text-white text-center py-4 mt-10">
-  <p class="text-sm">
-    © 2026 MovieeMart | All Rights Reserved.
-  </p>
-</footer>
+  <!-- Footer -->
+  <footer class="bg-[#0b1a3a] text-center py-4">
+    <p class="text-sm">© 2026 MovieeMart | All Rights Reserved.</p>
+  </footer>
 
-
-
-<!-- JavaScript Link  -->
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
+
 </html>
