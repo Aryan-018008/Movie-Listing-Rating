@@ -157,6 +157,7 @@ localStorage.setItem("rating_" + movieId, stars)
 ## 🧑‍💻 Author
 
 Aryan Bharadwaj
+
 GitHub - https://github.com/Aryan-018008
 
 ---
